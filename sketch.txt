@@ -1,0 +1,110 @@
+========================================
+=        Pushing Machine Solver        =
+=           ~ brief sketch ~           =
+=     lazywaterpig / replit-dreamw     =
+========================================
+
+Board size 8*6 (or row*column)
+
+Machine (not stretched): UDLR
+Machine (stretched): udlr
+Machine arms: A
+Machine endpoint: M
+
+Blocks (not push-able): #
+Boxes (push-able): X
+Positions Boxes should be placed: -
+Positions Boxes occupied: O
+Positions Machines occupied (not stretched): NSWE
+Positions Machines occupied (stretched): nswe
+Positions Machine arms occupied: a
+Positions Machine endpoints occupied: m
+
+Blank space: .
+
+========================================
+
+Example boards (8*6):
+
+=+= Difficulty: Easy(Lv. Amateur-1) =+=
+#####D
+##DD..
+#...#.
+#..X..
+##..#.
+##....
+##RRX.
+..-L.-
+
+=+= Difficulty: Normal(Lv. Skilled-24) =+=
+...DL#
+..XWO#
+..#.O#
+.....#
+UXR..#
+...DX-
+..-X.#
+.##-##
+
+=+= Difficulty: Hard(Lv. Impossible-1) =+=
+##D###
+#DX###
+#..-..
+-XRL..
+#RN#X#
+#...X-
+#UXOO#
+##-###
+
+========================================
+=          Ideas, Functions &          =
+=            Algorithm LIST            =
+========================================
+
+=+= Board placements =+=
+
+Given Board: 1<=x<=6, 1<=y<=8
+Wall: x,y = 0 or 9, #
+
+=+= Class Board =+=
+
+.box_pos (checking same board faster by only checking box_pos
+.endpoint_pos                   machine_pos, and endpoint_pos)
+.pos_list (list of positions that boxes should occupy)
+.machine_pos
+.machine_pos(that are not_deadlocked)
+.board[8][10]
+.parent (not parents; tree not graph)
+.       (check depth = 2 or 4 which one or two machine push/rewind + hashmaps)
+.childs[20] (MAX_value of number of machines)
+.hash (large # hash value that each positions has)
+
+=+= Functions =+=
+
+bool IsDeadlocked (2*2 sized region with one or more boxes that cannot be pushed)
+bool IsReducible (deadlocked positions that boxes occupied, into walls)
+bool IsPossiblePushLeft (existance fo boxes/machines that each can push any further)
+bool IsPositionLocked (possibility of boxes moving to certain '-' regions)
+bool IsPossibletoSolve (!IsDeadlocked && !IsPossiblePushLeft)
+bool IsSolved (X: 0, by .box_pos)
+bool IsValidMove (valid_move checker)
+bool PossibleMoveLister (makes list of possible moves from a certain position)
+bool IsQueueEmpty (is unsolvable?)
+
+=+= Algorithms & Techniques and Questions =+=
+
+backtracking (?)
+BFS
+Simulated Annealing (?/how)
+A* (?) (IDA*)
+linked_list
+hashmap
+pruning (?)
+
+Q I:    numbering machines w/ adding machine-only board => faster?
+Q II_1: hashing array size? vector <string>?
+Q II_2: matching each board elements prime numbers only? randomizing board value?
+Q III:  class or struct
+Q IV:   Expected date_of_finish(each functions, board implementation), Goal
+Q V:    Designing visualization of initial board placements & overall solution?
+Q VI:   Playout counter to check how many nodes visited?
